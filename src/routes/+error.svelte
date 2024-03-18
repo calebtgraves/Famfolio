@@ -1,8 +1,6 @@
 <script>
     import Header from "../lib/components/Header.svelte";
-
-
 </script>
 
 <Header />
-<h1>Landing Page</h1>
+<h1>Error: Page not found</h1>
