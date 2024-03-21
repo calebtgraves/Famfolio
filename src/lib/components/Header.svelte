@@ -1,9 +1,9 @@
 <script>
     import Error from "../../routes/+error.svelte";
+    import LoginButton from "./LoginButton.svelte";
 </script>
 
 <header>
     <a href="/">Landing Page</a>
-    <a href="/login">Log in</a>
-    <a href="/signup">Sign up</a>
+    <LoginButton />
 </header>

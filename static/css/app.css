@@ -1,0 +1,9 @@
+.account-button {
+    font-size: 1.3rem;
+    padding: 10px 25px;
+    color: #003D5B;
+    background-color: #6BBAEC;
+    border: 2px solid #F9F9ED;
+    border-radius: 20px;
+    cursor: pointer;
+}
