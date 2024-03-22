@@ -29,6 +29,7 @@
     #hero-container{
         position:relative;
         width:100%;
+        padding:.5rem 0;
     }
     #cta{
         position:absolute;
