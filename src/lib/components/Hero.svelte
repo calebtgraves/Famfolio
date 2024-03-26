@@ -22,7 +22,6 @@
     <HeroSlider direction="left" images={rowOneImages}/>
     <HeroSlider direction="right" images={rowTwoImages}/>
     <div id="cta">
-        <h1>Famfolio</h1>
     </div>
 </div>
 <style>
@@ -30,6 +29,7 @@
         position:relative;
         width:100%;
         padding:.5rem 0;
+        /* background-color: #90323D; */
     }
     #cta{
         position:absolute;
@@ -37,10 +37,9 @@
         bottom:0;
         left:0;
         right:0;
-        background-color:rgba(0,0,0,40%);
         display:flex;
         align-items: center;
         justify-content: center;
-        color:white;
+        color:#FFFCE8;
     }
 </style>
