@@ -3,3 +3,11 @@
     padding:0;
     margin:0;
 }
+
+:root{
+    --dark-red:#5E0B15;
+    --red: #90323D;
+    --ivory:#FFFCE8;
+    --blue:#2F6690;
+    --dark-blue: #011627;
+}
