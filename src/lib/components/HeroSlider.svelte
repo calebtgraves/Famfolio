@@ -67,6 +67,7 @@
         display:inline-block;
         background-size:cover;
         background-position: center;
+        filter:brightness(50%);
     }
     .square-img{
         width:15rem;
