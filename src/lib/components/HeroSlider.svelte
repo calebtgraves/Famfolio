@@ -4,11 +4,9 @@
     export let direction
     export let images
 
-    console.log(images);
     let imageElements = [];
     onMount(()=>{
         imageElements.forEach((image,index) => {
-            console.log(image,index);
             if(index>=images.length){
                 image.style.backgroundImage = `url('${images[index-images.length]}')`
             }else{

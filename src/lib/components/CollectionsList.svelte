@@ -7,7 +7,6 @@
     function addCollection() {
         if (collectionName.trim() !== '') {
             $collections = [...$collections, collectionName];
-            console.log("New collection added:", collectionName);
             showPopup.set(false);
             collectionName = '';
         }
