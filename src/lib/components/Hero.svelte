@@ -28,7 +28,7 @@
     #hero-container{
         position:relative;
         width:100%;
-        padding:.5rem 0;
+        padding-top:1rem;
         /* background-color: #90323D; */
     }
     #cta{
