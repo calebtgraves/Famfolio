@@ -1,4 +1,5 @@
 <script>
+  import CollectionsView from "../lib/components/CollectionsView.svelte";
     import Header from "../lib/components/Header.svelte";
     import Hero from "../lib/components/Hero.svelte";
 
@@ -9,6 +10,7 @@
     <div>
         <Header />
         <Hero />
+        <CollectionsView />
     </div>
     <div id="wrapper">
     </div>
