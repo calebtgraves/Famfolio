@@ -4,12 +4,16 @@
 
 <header>
     <div class="logo">
-        <h1>Famfolio</h1>
+        <img src="/Images/logo/logotextivory.svg" alt="famfolio">
     </div>
     <LoginButton/>
 </header>
 
 <style>
+    img{
+        user-select: none;
+        height:3rem;
+    }
     header{
         background-color: #90323D;
         padding:1rem;
@@ -19,8 +23,5 @@
         position:relative;
         z-index: 1;
         align-items: center;
-    }
-    h1{
-        color:var(--ivory);
     }
 </style>
