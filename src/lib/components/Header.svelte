@@ -12,6 +12,7 @@
 <style>
     img{
         user-select: none;
+        -webkit-user-drag: none;
         height:3rem;
     }
     header{
