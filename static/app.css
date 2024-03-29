@@ -11,6 +11,9 @@
     --dark-blue: #011627;
 }
 
+html, body{
+    height:100%;
+}
 *{
     box-sizing:border-box;
     padding:0;
@@ -48,5 +51,4 @@ button {
 button:hover {
     background-color: var(--red);
 }
-
 
