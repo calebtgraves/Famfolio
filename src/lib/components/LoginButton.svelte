@@ -18,16 +18,15 @@
     function handleLogout() {
         logout(client);
     }
-    function handleDash(){
-        window.location.href='/dashboard';
-    }
 </script>
 
 {#if $isAuthenticated}
 <div id="logout-box">
     <p>{$user?.name}</p>
     {#if $currentPage == "home"}
-    <button class="account-button" on:click={ handleDash }>Dashboard</button>
+    <a href="/dashboard">
+        <button class="account-button">Dashboard</button>
+    </a>
     {/if}
     <button class="account-button" on:click={ handleLogout }>Log Out</button>
 </div>

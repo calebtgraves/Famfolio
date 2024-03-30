@@ -4,7 +4,9 @@
 
 <header>
     <div class="logo">
-        <img src="/Images/logo/logotextivory.svg" alt="famfolio">
+        <a href="/">
+            <img src="/Images/logo/logotextivory.svg" alt="famfolio">
+        </a>
     </div>
     <LoginButton/>
 </header>

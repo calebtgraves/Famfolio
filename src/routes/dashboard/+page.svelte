@@ -13,9 +13,9 @@
         isAuthenticated.set(await client.isAuthenticated());
 
         if(!$isAuthenticated){
-            currentPage.set("dashboard");
             window.location.href = "/";
         }else{
+            currentPage.set("dashboard");
             token.set(await client.getTokenSilently())
             console.log($token);
             let media = await fetch("https://famfolioapi.onrender.com/media",{
