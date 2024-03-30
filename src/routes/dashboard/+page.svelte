@@ -11,18 +11,27 @@
         client = await createClient();
         user.set(await client.getUser());
         isAuthenticated.set(await client.isAuthenticated());
-        token.set(await client.getTokenSilently())
-        console.log($token);
-        let media = await fetch("https://famfolioapi.onrender.com/media",{
-            method: 'GET',
-            headers:{
-                Authorization: `Bearer ${$token}`
-            }
-        })
-        console.log(await media.json())
+
         if(!$isAuthenticated){
             currentPage.set("dashboard");
             window.location.href = "/";
+        }else{
+            token.set(await client.getTokenSilently())
+            console.log($token);
+            let media = await fetch("https://famfolioapi.onrender.com/media",{
+                method: 'GET',
+                headers:{
+                    Authorization: `Bearer ${$token}`
+                }
+            })
+            media = await media.json()
+            console.log(media[2]);
+            let category = await fetch(`https://famfolioapi.onrender.com/category/${media[2].category_id[0]}`,{
+                method: 'GET',
+                headers:{
+                    Authorization: `Bearer ${$token}`
+                }
+            })
         }
     })
 </script>
