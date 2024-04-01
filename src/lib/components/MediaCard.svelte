@@ -6,10 +6,11 @@
     let mediaCard;
 
     function getMediaId() {
-
+        // will eventually link the card and its media to the page that displays it
     }
 
     function getMedia() {
+        // will redirect the user to the media requested
         console.log("Media retrieved: ", media.title)
     }
 

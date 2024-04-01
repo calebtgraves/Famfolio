@@ -1,11 +1,7 @@
 <script>
     import MediaCard from "./MediaCard.svelte";
 
-    export let tabIndexCounter = 1; // 
-
-    function getMedia(collectionName) {
-
-    }
+    export let tabIndexCounter = 1; // set outside here and incremented within
 </script>
 
 <div id="collections-area">
