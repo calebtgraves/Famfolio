@@ -1,5 +1,6 @@
 <script> 
     import CollectionsList from "../../lib/components/CollectionsList.svelte";
+    import CollectionsView from "../../lib/components/CollectionsView.svelte";
     import Header from "../../lib/components/Header.svelte";
     import { currentPage, isAuthenticated, user, token } from "../../lib/stores.mjs";
     import { onMount } from "svelte";
@@ -40,6 +41,7 @@
     {#if $isAuthenticated}
     <div id="main-content">
         <CollectionsList />
+        <CollectionsView />
     </div>
     {/if}
 </div>
