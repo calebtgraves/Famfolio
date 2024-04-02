@@ -1,22 +1,30 @@
 <script>
-    import Error from "../../routes/+error.svelte";
+    import LoginButton from "./LoginButton.svelte";
 </script>
 
 <header>
     <div class="logo">
-        <h1>Famfolio</h1>
+        <a href="/">
+            <img src="/Images/logo/logotextivory.svg" alt="famfolio">
+        </a>
     </div>
+    <LoginButton/>
 </header>
 
 <style>
+    img{
+        user-select: none;
+        -webkit-user-drag: none;
+        height:3rem;
+    }
     header{
         background-color: #90323D;
-        color:#f9f9ed;
         padding:1rem;
         display:flex;
         justify-content:space-between;
         box-shadow:0px -3px 10px 5px rgba(0, 0, 0, 70%);
         position:relative;
         z-index: 1;
+        align-items: center;
     }
 </style>
