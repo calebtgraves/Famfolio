@@ -5,6 +5,7 @@
 </script>
 
 <div id="collections-area">
+    <!-- Example cards -->
     <MediaCard mediaType="img" media={{ url: "/Images/heroImages/2.jpg", title: "Happy family" }} tabindex = { tabIndexCounter++ }/>
     <MediaCard mediaType="text" media={{ url: "/Text/myFavoriteMemory.txt", title: "My Favorite Memory" }} tabIndex = { tabIndexCounter++ }/>
     <MediaCard mediaType="text" media={{ url: "/Text/temp.txt", title: "My Fridge Era"}} tabIndex = { tabIndexCounter++ }/>
@@ -14,6 +15,7 @@
     <MediaCard mediaType="text" media={{ title: "Remember to Take Out the Trash!" }} tabIndex = { tabIndexCounter++ }/>
     <MediaCard mediaType="audio" media={{ url: "/Audio/PillarofLight.mp3", title: "EFY - Pillar of Light" }} tabIndex = { tabIndexCounter++ }/>
     <MediaCard mediaType="link" media={{ url: "https://www.youtube.com/watch?v=z8VIhIIq-kk", title: "Listen at your Own Risk O.O" }} tabIndex = { tabIndexCounter++ }/>
+    <!-- End example cards -->
     <MediaCard mediaType="addMedia" tabIndex = { tabIndexCounter++ }/>
 </div>
 

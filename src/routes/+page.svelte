@@ -10,7 +10,6 @@
     <div>
         <Header />
         <Hero />
-        <CollectionsView />
     </div>
     <div id="wrapper">
     </div>
