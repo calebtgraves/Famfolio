@@ -1,5 +1,5 @@
 <script> 
-    import CollectionsList from "../../lib/components/CollectionsList.svelte";
+    import MobileMenu from "../../lib/components/MobileMenu.svelte";
 </script>
 
-<CollectionsList />
+<MobileMenu />
