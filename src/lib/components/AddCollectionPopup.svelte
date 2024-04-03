@@ -5,7 +5,6 @@
 
     function addCollection(name) {
         collections.push(name)
-        console.log("New collection added:", name);
         showPopup.set(false);
     }
 </script>

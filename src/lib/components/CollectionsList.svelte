@@ -7,7 +7,6 @@
     function addCollection() {
         if (collectionName.trim() !== '') {
             $collections = [...$collections, collectionName];
-            console.log("New collection added:", collectionName);
             showPopup.set(false);
             collectionName = '';
         }
@@ -37,10 +36,10 @@
 
 .sidebar {
     width: 300px;
-    height: 100vh;
     background-color: #f5f5f5; /* Light grey background */
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    position:relative;
 }
 
 .collection-list {
@@ -85,6 +84,9 @@
     justify-content: space-between;
     align-items: center;
 }
+.title-container h2{
+    margin: 1rem 0;
+}
 
 .add-button {
     display: flex;
@@ -100,7 +102,6 @@
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease; 
-    margin-bottom: 20px;
 }
 
 .add-button:hover {
@@ -109,8 +110,8 @@
 
 .popup {
     position: absolute;
-    top: 30%;
-    left: 35%;
+    top: 20%;
+    left: 120%;
     transform: translate(-50%, -50%);
     width: 300px; /* Adjust as needed */
     padding: 20px; /* Adjust as needed */
