@@ -1,4 +1,3 @@
-<script> 
     import CollectionsList from "../../lib/components/CollectionsList.svelte";
     import CollectionsView from "../../lib/components/CollectionsView.svelte";
     import Header from "../../lib/components/Header.svelte";
