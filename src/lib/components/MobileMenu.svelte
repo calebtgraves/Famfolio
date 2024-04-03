@@ -23,6 +23,8 @@
     .header-content {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        position: relative;
     }
 
     .hamburger {
@@ -31,6 +33,9 @@
         padding: 10px;
         cursor: pointer;
         display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 
     @media (max-width: 768px) {
