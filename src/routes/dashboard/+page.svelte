@@ -1,9 +1,11 @@
+<script>
     import CollectionsList from "../../lib/components/CollectionsList.svelte";
     import CollectionsView from "../../lib/components/CollectionsView.svelte";
     import Header from "../../lib/components/Header.svelte";
     import { currentPage, isAuthenticated, user, token } from "../../lib/stores.mjs";
     import { onMount } from "svelte";
     import { createClient } from "../../lib/authServices.mjs";
+    import MobileMenu from "../../lib/components/MobileMenu.svelte";
 
     let client;
 

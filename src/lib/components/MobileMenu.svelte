@@ -2,13 +2,7 @@
     import { onMount } from "svelte";
     import CollectionsList from "./CollectionsList.svelte";
 
-    let showCollections = window.innerWidth > 768;
-
-    onMount(() => {
-        window.addEventListener("resize", () => {
-            showCollections = window.innerWidth > 768;
-        });
-    });
+    let showCollections = innerWidth > 768;
 
     function toggleCollections() {
         showCollections = !showCollections;
