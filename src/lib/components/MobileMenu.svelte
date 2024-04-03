@@ -1,7 +1,14 @@
 <script>
+    import { onMount } from "svelte";
     import CollectionsList from "./CollectionsList.svelte";
 
-    let showCollections = true;
+    let showCollections = window.innerWidth > 768;
+
+    onMount(() => {
+        window.addEventListener("resize", () => {
+            showCollections = window.innerWidth > 768;
+        });
+    });
 
     function toggleCollections() {
         showCollections = !showCollections;
@@ -36,6 +43,10 @@
         position: absolute;
         top: 0;
         right: 0;
+    }
+
+    .collections {
+        display: block;
     }
 
     @media (max-width: 768px) {
