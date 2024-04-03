@@ -1,7 +1,10 @@
 <script>
   import { onMount } from "svelte";
+  import {openNewMediaWindow} from "../utils.mjs";
 
-    export let mediaType, media, tabIndex;
+    export let mediaType;
+    export let tabIndex;
+    export let media;
 
     let mediaCard;
 
@@ -17,7 +20,7 @@
     function getThumbnail() {
         let content;
         let title;
-        if (mediaType === "img") {             // images just have a src and alt
+        if (mediaType === "img" || mediaType == "66032d2e2a998221084b7839") {             // images just have a src and alt
             if (media.url) {
                 content = document.createElement("img");
                 content.src = media.url;
@@ -38,7 +41,7 @@
                 mediaCard.style.backgroundColor = "white";
                 mediaCard.style.boxShadow =  "0 0 6px black";
             }
-        } else if (mediaType === "text") {     // use an iframe for the text content
+        } else if (mediaType === "text" || mediaType == "66032d624cf09a0af03d65f6") {     // use an iframe for the text content
             // title
             title = document.createElement("h1");
             title.innerHTML = media.title ? media.title : "No Title";
@@ -55,7 +58,7 @@
             mediaCard.appendChild(content);
             mediaCard.style.backgroundColor = "white";
             mediaCard.style.boxShadow =  "0 0 6px black";
-        } else if (mediaType === "audio") {    // audio will have a play button to preview it
+        } else if (mediaType === "audio" || mediaType == "66032d4bb8973a0f4489ea23") {    // audio will have a play button to preview it
             // title
             title = document.createElement("h1");
             title.innerHTML = media.title ? media.title : "No Title";
@@ -99,20 +102,6 @@
             playButton.style.alignItems = "center";
 
             playButton.style.margin = "40px auto";
-        } else if (mediaType === "link") {
-            content = document.createElement("a");
-            content.innerHTML = media.title ? media.title : "No Title";
-            content.href = media.url;
-            content.target = "_blank";
-            content.style.fontSize = "1.5rem";
-            content.style.textAlign = "center";
-            content.tabIndex = tabIndex;
-            mediaCard.appendChild(content);
-            mediaCard.style.boxShadow =  "0 0 6px black";
-            mediaCard.style.backgroundColor = "white";
-            mediaCard.style.display = "flex";
-            mediaCard.style.justifyContent = "center";
-            mediaCard.style.alignItems = "center";
         } else if (mediaType === "addMedia") { // this is the "+" button that allows the user to add a new media
             content = document.createElement("p");
             mediaCard.classList.add("addMediaButton");
@@ -129,20 +118,31 @@
             mediaCard.style.display = "flex";
             mediaCard.style.justifyContent = "center";
             mediaCard.style.alignItems = "center";
-        } else {                               // if the media type is undefined or unknown, only show a title
-            title = document.createElement("h1");
-            title.innerHTML = media.title ? media.title : "Unknown Media";
-            mediaCard.appendChild(title);
+            mediaCard.onclick = openNewMediaWindow
+        } else {
+            content = document.createElement("a");
+            content.innerHTML = media.title ? media.title : "No Title";
+            content.href = media.url;
+            content.target = "_blank";
+            content.style.fontSize = "1.5rem";
+            content.style.textAlign = "center";
+            content.tabIndex = tabIndex;
+            mediaCard.appendChild(content);
+            mediaCard.style.boxShadow =  "0 0 6px black";
+            mediaCard.style.backgroundColor = "white";
+            mediaCard.style.display = "flex";
+            mediaCard.style.justifyContent = "center";
+            mediaCard.style.alignItems = "center";
         }
     }
 
     onMount( () => {
         getThumbnail();
-    })
+    });
 </script>
 
 
-<div id="" class="media-card" bind:this={ mediaCard } role="button">
+<div id="" class="media-card" bind:this={ mediaCard } title={media.title} role="button">
     
 </div>
 
