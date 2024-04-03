@@ -1,25 +1,81 @@
 <script>
+    import { onMount } from "svelte";
     import MediaCard from "./MediaCard.svelte";
+    import { isAuthenticated, token, user, myMedia, currentCollection, currentUser } from "../stores.mjs";
+    import { createClient } from "../authServices.mjs";
 
     export let tabIndexCounter = 1; // set outside here and incremented within
-</script>
 
+    $:$myMedia, getCollections()
+    let client
+    let collections
+
+    async function getCollections(){
+        if($currentUser){
+            collections = localStorage.getItem('famfolio-collections');
+            if(!collections){
+                localStorage.setItem('famfolio-collections',"{}")
+                collections = {}
+            }else{
+                collections = JSON.parse(collections);
+            }
+        }
+    }
+    onMount(async ()=>{
+        client = await createClient();
+        user.set(await client.getUser());
+        isAuthenticated.set(await client.isAuthenticated());
+
+        token.set(await client.getTokenSilently())
+        let thisUser = await fetch("https://famfolioapi.onrender.com/user/myself",{
+            method: 'GET',
+            headers:{
+                Authorization: `Bearer ${$token}`
+            }
+        })
+        thisUser = await thisUser.json()
+        currentUser.set(thisUser)
+        let fetchedMedia = await fetch(`https://famfolioapi.onrender.com/media/my/${$currentUser.userId}`,{
+            method: 'GET',
+            headers:{
+                Authorization: `Bearer ${$token}`
+            }
+        })
+        myMedia.set(await fetchedMedia.json())
+    })
+</script>
 <div id="collections-area">
-    <!-- Example cards -->
-    <MediaCard mediaType="img" media={{ url: "/Images/heroImages/2.jpg", title: "Happy family" }} tabindex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="text" media={{ url: "/Text/myFavoriteMemory.txt", title: "My Favorite Memory" }} tabIndex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="text" media={{ url: "/Text/temp.txt", title: "My Fridge Era"}} tabIndex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="img" media={{ url: "/Images/heroImages/8.jpeg", title: "My Beautiful Sparrow" }} tabindex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="text" media={{ url: "/Text/myWill.txt", title: "My Last Will and Testament" }} tabIndex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="audio" media={{ url: "/Audio/AnswertheCall.mp3", title: "Hope Works - Abe Mills" }} tabIndex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="text" media={{ title: "Take Out the Trash!" }} tabIndex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="audio" media={{ url: "/Audio/PillarofLight.mp3", title: "EFY - Pillar of Light" }} tabIndex = { tabIndexCounter++ }/>
-    <MediaCard mediaType="link" media={{ url: "https://www.youtube.com/watch?v=z8VIhIIq-kk", title: "Listen at your Own Risk O.O" }} tabIndex = { tabIndexCounter++ }/>
-    <!-- End example cards -->
-    <MediaCard mediaType="addMedia" tabIndex = { tabIndexCounter++ }/>
+    {#if $currentCollection != ""}
+    {#each $myMedia as item}
+        {#if $currentCollection == "All Media"}
+            {#if item.category_id.length > 0 && item.url != "test"}
+                <MediaCard mediaType={item.category_id[0]._id} media={{ url: item.url, title: item.title }} tabIndex={tabIndexCounter++}/>
+            {/if}
+        {:else}
+            {#if collections[$currentCollection].includes(item._id)}
+                <MediaCard mediaType={item.category_id[0]._id} media={{ url: item.url, title: item.title }} tabIndex={tabIndexCounter++}/>
+            {/if}
+        {/if}
+    {/each}
+    <MediaCard mediaType="addMedia" media="none" tabIndex = { tabIndexCounter++ }/>
+    {:else}
+    <div id="collection-placeholder">
+        <h1>Select a collection from the sidebar to view its contents, or create a new one.</h1>
+    </div>
+    {/if}
 </div>
 
 <style>
+    #collection-placeholder{
+        flex:1;
+        height:100%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #collection-placeholder h1{
+        height:fit-content;
+    }
     #collections-area {
         display: flex;
         flex-direction: row;
@@ -27,6 +83,5 @@
         flex: 1;
         justify-content: left;
         align-content: flex-start;
-        margin-top: 10px;
     }
 </style>

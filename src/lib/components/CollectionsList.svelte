@@ -1,12 +1,34 @@
 <script>
     import { writable } from 'svelte/store';
+    import { currentCollection } from '../stores.mjs';
     let showPopup = writable(false);
     let collectionName = '';
     let collections = writable([]);
+    let allCollections = localStorage.getItem("famfolio-collections");
+    if(allCollections){
+        let collectionNames = []
+        let parsed = JSON.parse(allCollections);
+        for (let collection in parsed) {
+            collectionNames.push(collection);
+        };
+        collections.set(collectionNames);
+    }else{
+        localStorage.setItem("famfolio-collections","{}");
+    }
 
     function addCollection() {
         if (collectionName.trim() !== '') {
             $collections = [...$collections, collectionName];
+            currentCollection.set(collectionName);
+            let myCollections
+            allCollections = localStorage.getItem("famfolio-collections");
+            if(allCollections){
+                myCollections = JSON.parse(allCollections);
+                myCollections[collectionName] = []
+            }else{
+                myCollections = {collectionName:[]}
+            }
+            localStorage.setItem('famfolio-collections',JSON.stringify(myCollections));
             showPopup.set(false);
             collectionName = '';
         }
@@ -27,8 +49,17 @@
             <button on:click={() => showPopup.set(false)}>Cancel</button>
         </div>
     {/if}
+    {#if $currentCollection == "All Media"}
+            <div class="collection-list selected"><button>All Media</button></div>
+        {:else}
+            <div class="collection-list"><button on:click={()=>{currentCollection.set("All Media")}}>All Media</button></div>
+        {/if}
     {#each $collections as collection}
-        <div class="collection-list"><a href="/">{collection}</a></div>
+        {#if $currentCollection == collection}
+            <div class="collection-list selected"><button>{collection}</button></div>
+        {:else}
+            <div class="collection-list"><button on:click={()=>{currentCollection.set(collection)}}>{collection}</button></div>
+        {/if}
     {/each} 
 </div>
 
@@ -44,26 +75,30 @@
 
 .collection-list {
     position: relative;
-    padding: 2.5px;
     border: 1px solid #ddd; /* Light grey border */
     width: 105%;
     background-color: #fff; /* White background */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
     transition: box-shadow 0.3s ease, transform 0.3 ease; /* Add a transition for the hover effect */
     overflow: hidden;
+    margin:.5rem;
 }
 
 .collection-list:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Darken the shadow when hovered */
 }
 
-.collection-list a {
-    display: block; /* Make the link take up the full width of the collection list */
+.collection-list button {
+    display: block; /* Make the button take up the full width of the collection list */
+    border-radius: 0;
+    width:100%;
     margin: 0;
+    font-size: 1rem;
     text-align: center;
     text-decoration: none;
-    padding: 5px;
+    padding: .5rem;
     color: #333; /* Dark grey text */
+    background-color: transparent;
     transition: color 0.3s ease; /* Add a transition for the hover effect */
 }
 
@@ -75,7 +110,19 @@
     transform: translateY(-50%) rotate(45deg); /* Rotate the square to create a triangle */
     width: 30px;
     height: 30px;
-    background-color: #2F6690;
+    background-color: darkgrey;
+    transition: all 0.3s ease;
+}
+
+.selected::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -6%; /* Position the triangle on the right side of the collection list */
+    transform: translateY(-50%) rotate(45deg); /* Rotate the square to create a triangle */
+    width: 30px;
+    height: 30px;
+    background-color: #2F6690 !important;
     transition: all 0.3s ease;
 }
 
@@ -122,6 +169,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index:1;
 }
 
 .popup input {
