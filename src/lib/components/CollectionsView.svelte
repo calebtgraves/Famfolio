@@ -7,6 +7,7 @@
     export let tabIndexCounter = 1; // set outside here and incremented within
 
     $:$myMedia, getCollections()
+    $:$currentCollection, getCollections()
     let client
     let collections
 
