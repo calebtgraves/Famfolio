@@ -17,13 +17,6 @@
         if(!$isAuthenticated){
             window.location.href = "/";
         }else{
-            fetch("https://famfolioapi.onrender.com/category", {
-                headers: {
-                    Authorization: `Bearer ${$token}`
-                }
-            })
-            .then(data => data.json())
-            .then(console.log)
             currentCollection.set("All Media");
             currentPage.set("dashboard");
         }
