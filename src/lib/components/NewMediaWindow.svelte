@@ -16,14 +16,14 @@
             body: JSON.stringify({title: mediaTitle, url: mediaUrl, category_id: [mediaType]})
         });
         newMedia = await newMedia.json();
-        let collections = localStorage.getItem("famfolio-collections");
+        let collections = localStorage.getItem(`famfolio-collections-${$currentUser.userId}`);
         if(collections) collections = JSON.parse(collections); else collections = {};
         if($currentCollection in collections){
             collections[$currentCollection].push(newMedia._id)
         }else{
             collections[$currentCollection] = [newMedia._id];
         }
-        localStorage.setItem('famfolio-collections',JSON.stringify(collections));
+        localStorage.setItem(`famfolio-collections-${$currentUser.userId}`,JSON.stringify(collections));
         newMediaWindow.remove();
         let fetchedMedia = await fetch(`https://famfolioapi.onrender.com/media/my/${$currentUser.userId}`,{
                 method: 'GET',

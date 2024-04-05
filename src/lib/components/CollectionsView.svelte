@@ -13,9 +13,9 @@
 
     async function getCollections(){
         if($currentUser){
-            collections = localStorage.getItem('famfolio-collections');
+            collections = localStorage.getItem(`famfolio-collections-${$currentUser.userId}`);
             if(!collections){
-                localStorage.setItem('famfolio-collections',"{}")
+                localStorage.setItem(`famfolio-collections-${$currentUser.userId}`,"{}")
                 collections = {}
             }else{
                 collections = JSON.parse(collections);
