@@ -6,7 +6,8 @@
 
     let mediaViewWindow;
 
-    let mediaTitle, mediaUrl = "";
+    let mediaTitle = media.title;
+    let mediaUrl = media.url;
 
     async function createNewMedia(){
         let newMedia = await fetch("https://famfolioapi.onrender.com/media",{

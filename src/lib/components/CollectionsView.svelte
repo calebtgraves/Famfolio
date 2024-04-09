@@ -50,11 +50,11 @@
     {#each $myMedia as item}
         {#if $currentCollection == "All Media"}
             {#if item.category_id.length > 0 && item.url != "test"}
-                <MediaCard mediaType={item.category_id[0]._id} media={{ url: item.url, title: item.title }} tabIndex={tabIndexCounter++}/>
+                <MediaCard mediaType={item.category_id[0]._id} media={{ url: item.url, title: item.title, _id:item._id }} tabIndex={tabIndexCounter++}/>
             {/if}
         {:else}
             {#if collections[$currentCollection].includes(item._id)}
-                <MediaCard mediaType={item.category_id[0]._id} media={{ url: item.url, title: item.title }} tabIndex={tabIndexCounter++}/>
+                <MediaCard mediaType={item.category_id[0]._id} media={{ url: item.url, title: item.title, _id:item._id }} tabIndex={tabIndexCounter++}/>
             {/if}
         {/if}
     {/each}
