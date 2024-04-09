@@ -79,7 +79,8 @@
             mediaCard.appendChild(content);
             let playButton = document.createElement("button");
             playButton.innerHTML = "&#x23F5;"; // play symbol
-            playButton.addEventListener("click", () => {
+            playButton.addEventListener("click", (e) => {
+                e.stopImmediatePropagation();
                 if (content.paused) {
                     content.play();
                     playButton.innerHTML = "&#x23F8"; // pause symbol

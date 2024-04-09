@@ -4,10 +4,14 @@
     export let media;
     export let container;
 
+    let oldInfo = {title: media.title, url: media.url, category_id: mediaType};
+
     let mediaViewWindow;
 
     let mediaTitle = media.title;
     let mediaUrl = media.url;
+
+    let changed = false;
 
     async function createNewMedia(){
         let newMedia = await fetch("https://famfolioapi.onrender.com/media",{
@@ -35,34 +39,89 @@
                 }
             })
         myMedia.set(await fetchedMedia.json())
-        console.log($myMedia)
     }
 
-    function deleteMedia() {
+    async function deleteMedia() {
         fetch(`https://famfolioapi.onrender.com/media/${media._id}`,{
             method: "DELETE",
             headers:{
+                'Content-type':'application/json',
                 Authorization: `Bearer ${$token}`
-            }
+            },
+            body: JSON.stringify({user: $currentUser.userId})
         }).then(data=>data.json()).then(console.log)
         container.style.display = "none";
+        changed = false;
+        let fetchedMedia = await fetch(`https://famfolioapi.onrender.com/media/my/${$currentUser.userId}`,{
+                method: 'GET',
+                headers:{
+                    Authorization: `Bearer ${$token}`
+                }
+            })
+        myMedia.set(await fetchedMedia.json())
+    }
+
+    async function updateMedia(){
+        fetch(`https://famfolioapi.onrender.com/media/${media._id}`,{
+            method: "PUT",
+            headers:{
+                'Content-type':'application/json',
+                Authorization: `Bearer ${$token}`
+            },
+            body: JSON.stringify({title: mediaTitle, url: mediaUrl, category_id: [mediaType]})
+        }).then(data=>data.json()).then(console.log)
+        container.style.display = "none";
+        changed = false;
+
+        let fetchedMedia = await fetch(`https://famfolioapi.onrender.com/media/my/${$currentUser.userId}`,{
+                method: 'GET',
+                headers:{
+                    Authorization: `Bearer ${$token}`
+                }
+            })
+        myMedia.set(await fetchedMedia.json())
+    }
+
+    function cancel() {
+        mediaTitle = oldInfo.title;
+        mediaUrl = oldInfo.url;
+        mediaType = oldInfo.category_id;
+        container.style.display = "none";
+        changed = false;
     }
 
 </script>
 <div class="window-background" bind:this={mediaViewWindow}>
     <div class="media-view-window">
-        <h1>Edit Media</h1>
+        <h1>{oldInfo.title}</h1>
+        {#if mediaType=="66032d2e2a998221084b7839"}
+            <a href={oldInfo.url} target="_blank">
+                <img src={oldInfo.url} alt={oldInfo.title} class="mediaimg"/>
+            </a>
+        {:else if mediaType=="66032d624cf09a0af03d65f6"}
+            <iframe title={oldInfo.title} src={oldInfo.url} width="100%" height="100%" frameborder="0"></iframe>
+            <a href={oldInfo.url} target="_blank">Media Link</a>
+        {:else if mediaType=="66032d4bb8973a0f4489ea23"}
+            <audio controls>
+                <source src={oldInfo.url} type="audio/mpeg"/>
+                Your browser does not support the audio element.
+            </audio>
+        {:else}
+            <a href={oldInfo.url} target="_blank">Media Link</a>
+        {/if}
+            
+
         <label>
             Media Title
-            <input type="text" bind:value={mediaTitle}/>
+            <input type="text" bind:value={mediaTitle} on:input={()=>{changed=true}}/>
         </label>
         <label>
             Media Url
-            <input type="text" bind:value={mediaUrl}/>
+            <input type="text" bind:value={mediaUrl} on:input={()=>{changed=true}}/>
         </label>
         <label>
             Media Type
-            <select name="mediaType" id="media-type" bind:value={mediaType}>
+            <select name="mediaType" id="media-type" bind:value={mediaType} on:change={()=>{changed=true}}>
                 <option value="66032d2e2a998221084b7839">Image</option>
                 <option value="66032d624cf09a0af03d65f6">Text</option>
                 <option value="66032d4bb8973a0f4489ea23">Audio</option>
@@ -70,8 +129,12 @@
             </select>
         </label>
         <div id="button-box">
-            <button on:click={()=>{container.style.display = "none"}}>Cancel</button>
-            <button on:click={deleteMedia}>Delete</button>
+            <button on:click={cancel}>Cancel</button>
+            {#if changed}
+                <button on:click={updateMedia}>Update</button>
+            {:else}
+                <button on:click={deleteMedia}>Delete</button>
+            {/if}
         </div>
     </div>
 </div>
@@ -88,6 +151,9 @@
         align-items: center;
         background-color: rgba(0, 0, 0, 0.3);
     }
+    .mediaimg{
+        max-height: 15rem;
+    }
     .media-view-window{
         border-radius:1rem;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -96,6 +162,9 @@
         display:flex;
         flex-direction:column;
         padding:1rem;
+    }
+    iframe{
+        height:15rem;
     }
     label{
         display:flex;
