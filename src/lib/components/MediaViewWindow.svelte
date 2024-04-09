@@ -1,10 +1,12 @@
 <script>
     import { currentCollection, token, currentUser, myMedia } from "../stores.mjs";
+    export let mediaType;
+    export let media;
+    export let container;
 
-    let newMediaWindow
+    let mediaViewWindow;
 
     let mediaTitle, mediaUrl = "";
-    let mediaType = "66032d2e2a998221084b7839"; //Set the default media type to image
 
     async function createNewMedia(){
         let newMedia = await fetch("https://famfolioapi.onrender.com/media",{
@@ -24,7 +26,7 @@
             collections[$currentCollection] = [newMedia._id];
         }
         localStorage.setItem(`famfolio-collections-${$currentUser.userId}`,JSON.stringify(collections));
-        newMediaWindow.remove();
+        container.style.display = "none";
         let fetchedMedia = await fetch(`https://famfolioapi.onrender.com/media/my/${$currentUser.userId}`,{
                 method: 'GET',
                 headers:{
@@ -34,10 +36,21 @@
         myMedia.set(await fetchedMedia.json())
         console.log($myMedia)
     }
+
+    function deleteMedia() {
+        fetch(`https://famfolioapi.onrender.com/media/${media._id}`,{
+            method: "DELETE",
+            headers:{
+                Authorization: `Bearer ${$token}`
+            }
+        }).then(data=>data.json()).then(console.log)
+        container.style.display = "none";
+    }
+
 </script>
-<div class="window-background" bind:this={newMediaWindow}>
-    <div class="new-media-window">
-        <h1>Create New</h1>
+<div class="window-background" bind:this={mediaViewWindow}>
+    <div class="media-view-window">
+        <h1>Edit Media</h1>
         <label>
             Media Title
             <input type="text" bind:value={mediaTitle}/>
@@ -56,8 +69,8 @@
             </select>
         </label>
         <div id="button-box">
-            <button on:click={()=>{newMediaWindow.remove()}}>Cancel</button>
-            <button on:click={createNewMedia}>Create</button>
+            <button on:click={()=>{container.style.display = "none"}}>Cancel</button>
+            <button on:click={deleteMedia}>Delete</button>
         </div>
     </div>
 </div>

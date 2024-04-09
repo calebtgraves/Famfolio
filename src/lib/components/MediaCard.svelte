@@ -1,12 +1,16 @@
 <script>
   import { onMount } from "svelte";
   import {openNewMediaWindow} from "../utils.mjs";
+  import MediaViewWindow from "./MediaViewWindow.svelte";
+
 
     export let mediaType;
     export let tabIndex;
     export let media;
 
     let mediaCard;
+
+    let mediaWindow;
 
     function getMediaId() {
         // will eventually link the card and its media to the page that displays it
@@ -139,10 +143,24 @@
     onMount( () => {
         getThumbnail();
     });
+
+    function displayMediaWindow() {
+        mediaWindow.style.display = "block";
+    }
+
+    function handleKeydown(e) {
+        if (e.keyCode === 13) {
+            displayMediaWindow();
+        }
+    }
+
 </script>
 
+<div class="media-window" bind:this={mediaWindow}>
+    <MediaViewWindow bind:container={mediaWindow} mediaType={mediaType} media={media}></MediaViewWindow>
+</div>
 
-<div id="" class="media-card" bind:this={ mediaCard } title={media.title} role="button">
+<div id="" class="media-card" bind:this={ mediaCard } title={media.title} tabindex={tabIndex} role="button" on:keydown={(e)=>{handleKeydown(e)}} on:click={displayMediaWindow}>
     
 </div>
 
@@ -155,6 +173,11 @@
         height: 200px;
         margin: 20px 20px;
         transition: 0.25s ease-in-out;
+    }
+
+    .media-window {
+        display: none;
+        position: fixed;
     }
 
     :global(.media-card:hover) {
