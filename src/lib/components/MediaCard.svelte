@@ -160,7 +160,7 @@
     <MediaViewWindow bind:container={mediaWindow} mediaType={mediaType} media={media}></MediaViewWindow>
 </div>
 
-<div id="" class="media-card" bind:this={ mediaCard } title={media.title} tabindex={tabIndex} role="button" on:keydown={(e)=>{handleKeydown(e)}} on:click={displayMediaWindow}>
+<div id="" class="media-card" bind:this={ mediaCard } title={media.title} tabindex={tabIndex} role="button" on:keydown={(e)=>{handleKeydown(e)}} on:click={()=>{if(mediaType!="addMedia"){displayMediaWindow()}}}>
     
 </div>
 
