@@ -76,7 +76,6 @@
 .collection-list {
     position: relative;
     border: 1px solid #ddd; /* Light grey border */
-    width: 105%;
     background-color: #fff; /* White background */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
     transition: box-shadow 0.3s ease, transform 0.3 ease; /* Add a transition for the hover effect */
@@ -106,7 +105,7 @@
     content: "";
     position: absolute;
     top: 50%;
-    right: -6%; /* Position the triangle on the right side of the collection list */
+    right: -15px; /* Position the triangle on the right side of the collection list */
     transform: translateY(-50%) rotate(45deg); /* Rotate the square to create a triangle */
     width: 30px;
     height: 30px;
@@ -118,7 +117,7 @@
     content: "";
     position: absolute;
     top: 50%;
-    right: -6%; /* Position the triangle on the right side of the collection list */
+    right: -15px; /* Position the triangle on the right side of the collection list */
     transform: translateY(-50%) rotate(45deg); /* Rotate the square to create a triangle */
     width: 30px;
     height: 30px;
@@ -195,5 +194,13 @@
 .popup button:hover {
     background-color: #1E4D70;
 }
-
+@media screen and (max-width:800px){
+    .sidebar{
+        width:100%;
+    }
+    .popup{
+        top:110%;
+        left:50%;
+    }
+}
 </style>

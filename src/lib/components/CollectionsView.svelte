@@ -85,4 +85,9 @@
         justify-content: left;
         align-content: flex-start;
     }
+    @media screen and (max-width:800px){
+        #collections-area{
+            justify-content: center;
+        }
+    }
 </style>

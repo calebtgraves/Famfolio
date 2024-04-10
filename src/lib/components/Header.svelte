@@ -24,7 +24,6 @@
         justify-content:space-between;
         box-shadow:0px -3px 10px 5px rgba(0, 0, 0, 70%);
         position:relative;
-        z-index: 1;
         align-items: center;
     }
 </style>
