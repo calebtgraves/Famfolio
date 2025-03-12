@@ -1,38 +1,11 @@
-# create-svelte
+# Famfolio
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+> [!Note]
+> Famfolio is not a finished product; it is just a hobby project.
+> It will likely not be receiving any future updates
 
-## Creating a project
+Famfolio was developed by a team of classmates who wanted to learn more about SvelteKit.
+A deployed prototype is available at [https://famfolio.netlify.app/](https://famfolio.netlify.app/)
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+![Screenshot 2025-03-12 101832](https://github.com/user-attachments/assets/2d11834f-1cca-45fd-881c-2de09b439e7a)
+![Screenshot 2025-03-12 102406](https://github.com/user-attachments/assets/b96d1902-4ff5-4705-a8c3-59a5c12fada0)
